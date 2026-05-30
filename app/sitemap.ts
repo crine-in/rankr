@@ -2,8 +2,8 @@ import { MetadataRoute } from "next";
 import { exams } from "../lib/config/exams";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const domain = process.env.NEXT_PUBLIC_SITE_URL || "https://rankr.in";
-  
+  const domain = process.env.NEXT_PUBLIC_SITE_URL || "https://rankr.crine.in";
+
   const routes: MetadataRoute.Sitemap = [
     {
       url: domain,

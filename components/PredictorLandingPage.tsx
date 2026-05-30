@@ -130,7 +130,7 @@ export const PredictorLandingPage: React.FC<PredictorLandingPageProps> = async (
               <TrendingUp className="w-4 h-4" />
               View Marks vs Rank Table
             </Link>
-            
+
             <Link
               href={`/${exam.slug}/previous-year-ranks`}
               className="inline-flex items-center gap-1.5 px-5 py-3 text-sm font-extrabold text-slate-600 bg-slate-100 hover:bg-slate-200 dark:bg-zinc-850 dark:text-zinc-300 dark:hover:bg-zinc-800 rounded-xl transition-all"
@@ -139,6 +139,29 @@ export const PredictorLandingPage: React.FC<PredictorLandingPageProps> = async (
               Analyze Historical Trends
             </Link>
           </div>
+
+          {/* Natural Callout: Handcrafted Exam Notes */}
+          <Card variant="flat" className="mt-8 p-6 bg-gradient-to-r from-indigo-50/50 to-indigo-100/20 border border-indigo-100 rounded-3xl dark:from-zinc-900/50 dark:to-zinc-900/30 dark:border-indigo-900/30 relative overflow-hidden flex flex-col sm:flex-row items-center gap-4">
+            <div className="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0 dark:bg-indigo-950/50 dark:text-indigo-400">
+              <BookOpen className="w-6 h-6" />
+            </div>
+            <div className="flex-1 text-center sm:text-left">
+              <h4 className="text-base font-black text-slate-800 dark:text-zinc-200">
+                Struggling with your {exam.name} prep?
+              </h4>
+              <p className="text-xs font-bold text-slate-500 dark:text-zinc-400 mt-1">
+                Grab free handcrafted study notes, solved previous papers, and quick syllabus mock tests to boost your final revision!
+              </p>
+            </div>
+            <a
+              href="https://www.studiva.co.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 text-xs font-extrabold text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl transition-all shadow-[0_2px_0_0_#4338ca] active:translate-y-[2px] active:shadow-none shrink-0"
+            >
+              Get Free Notes
+            </a>
+          </Card>
         </div>
 
         {/* Right Side: Prediction Form Wrapper */}

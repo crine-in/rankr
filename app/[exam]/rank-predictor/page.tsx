@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { exams } from "../../../lib/config/exams";
 import { PredictorLandingPage } from "../../../components/PredictorLandingPage";
+import { generateSEOMetadata, generateStructuredData } from "../../../lib/seo";
+import seoData from "../../../lib/config/seo-metadata.json";
 
 interface PageProps {
   params: Promise<{ exam: string }>;
@@ -14,11 +16,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!exam) return { title: "Predictor Not Found" };
 
-  return {
-    title: `${exam.name} Rank Predictor - Predict Expected Rank Instantly`,
-    description: `Calculate your expected ${exam.name} CRL and category ranks instantly! Data-backed linear interpolation based on actual historical score datasets.`,
-    keywords: [`${exam.name} rank predictor`, `${exam.name} rank vs marks`, `expected rank`, `${exam.name} rank calculator`],
-  };
+  return generateSEOMetadata({
+    examSlug: exam.slug,
+    pageType: "predictor",
+    canonicalPath: `/${exam.slug}/rank-predictor`,
+  });
 }
 
 export default async function DynamicPredictorPage({ params }: PageProps) {
@@ -29,5 +31,34 @@ export default async function DynamicPredictorPage({ params }: PageProps) {
     notFound();
   }
 
-  return <PredictorLandingPage examSlug={exam.slug} />;
+  // Generate structured data
+  const breadcrumbsSchema = generateStructuredData("breadcrumbs", {
+    breadcrumbs: [
+      { name: "Home", url: "/" },
+      { name: `${exam.name} Rank Predictor`, url: `/${exam.slug}/rank-predictor` },
+    ],
+  });
+
+  const customFaq = (seoData.exams as any)[exam.slug]?.faq || [];
+  const faqSchema = generateStructuredData("faq", { faqs: customFaq });
+  const appSchema = generateStructuredData("software_application", { examName: exam.name });
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(appSchema) }}
+      />
+      <PredictorLandingPage examSlug={exam.slug} />
+    </>
+  );
 }
+

@@ -7,6 +7,7 @@ import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { RanksTable } from "../../../components/RanksTable";
 import { Card } from "../../../components/ui/Card";
 import { BarChart3, TrendingUp, Trophy, Calendar } from "lucide-react";
+import { generateSEOMetadata, generateStructuredData } from "../../../lib/seo";
 
 interface PageProps {
   params: Promise<{ exam: string; year: string }>;
@@ -24,10 +25,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const yearNum = parseInt(yearStr.replace("-ranks", ""));
   if (isNaN(yearNum)) return { title: "Data Table Not Found" };
 
-  return {
-    title: `${exam.name} ${yearNum} Marks vs Rank Table - Historical Database`,
-    description: `Browse the complete ${exam.name} ${yearNum} marks vs rank table. Filter by category and gender to find real benchmarks based on ${yearNum} student data.`,
-  };
+  return generateSEOMetadata({
+    examSlug: exam.slug,
+    pageType: "yearRanks",
+    year: yearNum,
+    canonicalPath: `/${exam.slug}/${yearStr}`,
+  });
 }
 
 export default async function YearRanksPage({ params }: PageProps) {
@@ -60,8 +63,37 @@ export default async function YearRanksPage({ params }: PageProps) {
   const statsList = await getYearlyStats(examSlug, year);
   const stats = statsList[0];
 
+  // Generate structured schemas
+  const breadcrumbsSchema = generateStructuredData("breadcrumbs", {
+    breadcrumbs: [
+      { name: "Home", url: "/" },
+      { name: `${exam.name} Predictor`, url: `/${exam.slug}/rank-predictor` },
+      { name: "Previous Year Ranks", url: `/${exam.slug}/previous-year-ranks` },
+      { name: `${year} Table`, url: `/${exam.slug}/${yearStr}` },
+    ],
+  });
+
+  const datasetStats = {
+    recordCount: stats?.total_records || records.length || 0,
+    highestMarks: Number(stats?.highest_marks || records[0]?.marks || exam.maxMarks),
+    bestRank: Number(stats?.best_rank || 1),
+  };
+  const datasetSchema = generateStructuredData("dataset", {
+    examName: exam.name,
+    year,
+    datasetStats,
+  });
+
   return (
     <div className="container max-w-6xl mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }}
+      />
       {/* Breadcrumbs */}
       <Breadcrumbs
         items={[
@@ -120,6 +152,29 @@ export default async function YearRanksPage({ params }: PageProps) {
           maxMarks={exam.maxMarks}
         />
       </div>
+
+      {/* Dynamic Student Blog Callout */}
+      <Card variant="flat" className="mt-12 p-6 bg-gradient-to-r from-amber-50/50 to-amber-100/20 border border-amber-100 rounded-3xl dark:from-zinc-900/50 dark:to-zinc-900/30 dark:border-amber-900/30 relative overflow-hidden flex flex-col sm:flex-row items-center gap-4">
+        <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shrink-0 dark:bg-amber-950/50 dark:text-amber-400 text-lg">
+          📝
+        </div>
+        <div className="flex-1 text-center sm:text-left">
+          <h4 className="text-base font-black text-slate-800 dark:text-zinc-200">
+            Need guidance on picking the right engineering or medical stream?
+          </h4>
+          <p className="text-xs font-bold text-slate-500 dark:text-zinc-400 mt-1">
+            Browse our companion blog for student counseling reviews, branch selection advice, and college hacks!
+          </p>
+        </div>
+        <a
+          href="https://blog.studiva.co.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-xs font-extrabold text-slate-800 bg-white hover:bg-slate-50 border-2 border-slate-200 rounded-xl transition-all shadow-[0_2px_0_0_#e2e8f0] active:translate-y-[2px] active:shadow-none dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-200 dark:shadow-[0_2px_0_0_#27272a] dark:hover:bg-zinc-850 shrink-0"
+        >
+          Explore Counseling Guides
+        </a>
+      </Card>
 
       {/* Explanatory footer */}
       <section className="mt-16 bg-slate-50 dark:bg-zinc-900/50 rounded-3xl p-8 border-2 border-slate-200/80 dark:border-zinc-800">

@@ -12,6 +12,7 @@ import {
   TrendingUp,
   LineChart,
 } from "lucide-react";
+import { generateSEOMetadata, generateStructuredData } from "../../../lib/seo";
 
 interface PageProps {
   params: Promise<{ exam: string }>;
@@ -24,10 +25,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!exam) return { title: "Exam Not Found" };
 
-  return {
-    title: `${exam.name} Previous Year Ranks - Historical Marks vs Rank`,
-    description: `Explore multi-year marks-vs-rank databases for ${exam.name}. Compare candidate records from 2023, 2024, and 2025 to evaluate admission trends.`,
-  };
+  return generateSEOMetadata({
+    examSlug: exam.slug,
+    pageType: "previousYear",
+    canonicalPath: `/${exam.slug}/previous-year-ranks`,
+  });
 }
 
 export default async function PreviousYearRanksPage({ params }: PageProps) {
@@ -41,8 +43,20 @@ export default async function PreviousYearRanksPage({ params }: PageProps) {
   // Fetch yearly statistics aggregates from our database
   const statsList = await getYearlyStats(examSlug);
 
+  const breadcrumbsSchema = generateStructuredData("breadcrumbs", {
+    breadcrumbs: [
+      { name: "Home", url: "/" },
+      { name: `${exam.name} Predictor`, url: `/${exam.slug}/rank-predictor` },
+      { name: "Previous Year Ranks", url: `/${exam.slug}/previous-year-ranks` },
+    ],
+  });
+
   return (
     <div className="container max-w-6xl mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsSchema) }}
+      />
       {/* Breadcrumbs */}
       <Breadcrumbs
         items={[
@@ -123,6 +137,29 @@ export default async function PreviousYearRanksPage({ params }: PageProps) {
           );
         })}
       </div>
+
+      {/* Cozy dynamic Student Blog callout card */}
+      <Card variant="flat" className="mt-12 p-6 bg-gradient-to-r from-amber-50/50 to-amber-100/20 border border-amber-100 rounded-3xl dark:from-zinc-900/50 dark:to-zinc-900/30 dark:border-amber-900/30 relative overflow-hidden flex flex-col sm:flex-row items-center gap-4">
+        <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shrink-0 dark:bg-amber-950/50 dark:text-amber-400 text-lg">
+          📝
+        </div>
+        <div className="flex-1 text-center sm:text-left">
+          <h4 className="text-base font-black text-slate-800 dark:text-zinc-200">
+            Confused about branch selection or counseling?
+          </h4>
+          <p className="text-xs font-bold text-slate-500 dark:text-zinc-400 mt-1">
+            Read helpful guides, preparation tips, and honest college campus reviews written by students on our blog!
+          </p>
+        </div>
+        <a
+          href="https://blog.studiva.co.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-xs font-extrabold text-slate-800 bg-white hover:bg-slate-50 border-2 border-slate-200 rounded-xl transition-all shadow-[0_2px_0_0_#e2e8f0] active:translate-y-[2px] active:shadow-none dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-200 dark:shadow-[0_2px_0_0_#27272a] dark:hover:bg-zinc-850 shrink-0"
+        >
+          Read the Blog
+        </a>
+      </Card>
 
       {/* SEO Explanatory Section */}
       <section className="mt-16 bg-white dark:bg-zinc-900/50 rounded-3xl p-8 border-2 border-slate-200/80 dark:border-zinc-800">

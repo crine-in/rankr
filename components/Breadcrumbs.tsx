@@ -22,7 +22,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
       "@type": "ListItem",
       "position": index + 1,
       "name": item.label,
-      "item": typeof window !== "undefined" ? window.location.origin + item.href : `https://rankr.in${item.href}`
+      "item": typeof window !== "undefined" ? window.location.origin + item.href : `https://rankr.crine.in${item.href}`
     }))
   };
 
@@ -41,7 +41,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
           return (
             <li key={index} className="flex items-center gap-1.5 sm:gap-2">
               {index > 0 && <span className="text-slate-300 dark:text-zinc-700">/</span>}
-              
+
               {isLast ? (
                 <span className="text-indigo-600 dark:text-indigo-400 font-extrabold max-w-[200px] truncate sm:max-w-none">
                   {item.label}

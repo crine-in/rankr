@@ -27,8 +27,8 @@ export const RankPredictorForm: React.FC<RankPredictorFormProps> = ({
 
   const [selectedExam, setSelectedExam] = useState<Exam>(defaultExam);
   const [marks, setMarks] = useState<string>("");
-  const [category, setCategory] = useState<string>("ALL");
-  const [gender, setGender] = useState<string>("ALL");
+  const [category, setCategory] = useState<string>("GENERAL");
+  const [gender, setGender] = useState<string>("MALE");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   // Reset/sync exam when props change
@@ -47,8 +47,8 @@ export const RankPredictorForm: React.FC<RankPredictorFormProps> = ({
     const exam = exams.find((ex) => ex.slug === slug);
     if (exam) {
       setSelectedExam(exam);
-      setCategory("ALL");
-      setGender("ALL");
+      setCategory("GENERAL");
+      setGender("MALE");
       setMarks("");
       setErrors({});
     }
@@ -82,8 +82,8 @@ export const RankPredictorForm: React.FC<RankPredictorFormProps> = ({
     onPredict({
       exam: selectedExam.slug,
       marks: Number(marks),
-      category: category === "ALL" ? null : category,
-      gender: gender === "ALL" ? null : gender,
+      category: category,
+      gender: gender,
     });
   };
 
@@ -98,15 +98,9 @@ export const RankPredictorForm: React.FC<RankPredictorFormProps> = ({
   // Prepare select options
   const examOptions = exams.map((e) => ({ value: e.slug, label: e.name }));
   
-  const categoryOptions = [
-    { value: "ALL", label: "GENERAL (CRL) or No Category" },
-    ...selectedExam.categories.map((c) => ({ value: c, label: c })),
-  ];
+  const categoryOptions = selectedExam.categories.map((c) => ({ value: c, label: c }));
 
-  const genderOptions = [
-    { value: "ALL", label: "Select Gender (Optional)" },
-    ...selectedExam.genders.map((g) => ({ value: g, label: g })),
-  ];
+  const genderOptions = selectedExam.genders.map((g) => ({ value: g, label: g }));
 
   return (
     <Card className="w-full relative overflow-hidden p-8 sm:p-10">

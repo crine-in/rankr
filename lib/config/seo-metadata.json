@@ -1,0 +1,215 @@
+{
+  "site": {
+    "name": "Rankr",
+    "url": "https://rankr.crine.in",
+    "logoUrl": "https://rankr.crine.in/logo.png",
+    "ogImage": "https://rankr.crine.in/og-image.png",
+    "twitterHandle": "@studiva_hq",
+    "defaultTitle": "Rankr - Rank Predictor for Competitive Exams",
+    "defaultDescription": "Predict your competitive exam rank instantly! High-impact, interpolation-backed analysis for JEE Main, NEET, GATE, CAT, and WBJEE with no login required.",
+    "defaultKeywords": [
+      "rank predictor",
+      "marks vs rank",
+      "percentile predictor",
+      "expected rank",
+      "college cutoff predictor",
+      "entrance exam score analyzer",
+      "rank prediction engine",
+      "JEE Main",
+      "NEET",
+      "GATE",
+      "CAT",
+      "WBJEE"
+    ]
+  },
+  "exams": {
+    "jee-main": {
+      "name": "JEE Main",
+      "predictorTitle": "JEE Main Rank Predictor 2026 - Predict Expected AIR Instantly",
+      "predictorDescription": "Calculate your expected JEE Main All India Rank (AIR) instantly! Advanced local-weighted interpolation matching 2023, 2024, and 2025 student data.",
+      "previousYearTitle": "JEE Main Previous Year Ranks - Historical Marks vs Rank Database",
+      "previousYearDescription": "Analyze historical JEE Main score thresholds and cutoffs. Evaluate marks-vs-rank inflation across 2023, 2024, and 2025 databases for General, OBC, SC, ST.",
+      "marksVsRankTitle": "JEE Main Marks vs Rank - Multi-Year Comparative Trend Analyzer",
+      "marksVsRankDescription": "Compare score vs rank shifts for JEE Main across years. Gain data-backed bounds to discover worst-case and best-case rank scenarios based on 300 marks.",
+      "yearRanksTitleTemplate": "JEE Main {year} Marks vs Rank Table - Detailed Historical Benchmarks",
+      "yearRanksDescriptionTemplate": "Browse the complete, searchable JEE Main {year} marks vs rank directory. Filter by Category (OBC, SC, ST, EWS) and Gender to pinpoint seat cutoffs.",
+      "keywords": [
+        "JEE Main rank predictor",
+        "JEE Main marks vs rank",
+        "JEE Main rank calculator",
+        "JEE Main CRL rank vs category rank",
+        "JEE Main percentile vs marks",
+        "JEE Main Marks vs Rank OBC NCL",
+        "JEE Main expected rank 2026",
+        "marks vs rank JEE Main 2025",
+        "marks vs rank JEE Main 2024",
+        "JEE Main marks to rank shift",
+        "expected rank JEE Main",
+        "JEE Main score calculator"
+      ],
+      "faq": [
+        {
+          "q": "What is a good score in JEE Main to get under 10,000 rank?",
+          "a": "Generally, a score of 180+ out of 300 is required to get a rank under 10,000. However, this varies depending on the exam difficulty level and year."
+        },
+        {
+          "q": "How does category reservation affect JEE Main rank prediction?",
+          "a": "Reservation shifts the cutoff and category ranking. Rankr predicts your common merit list (CRL) rank, while category status determines the adjusted percentile needed for seat allocation."
+        },
+        {
+          "q": "How accurate is the JEE Main rank predictor?",
+          "a": "Rankr uses linear interpolation based on massive historical datasets from 2023, 2024, and 2025, yielding up to 95%+ confidence when nearby data density is high."
+        },
+        {
+          "q": "What rank is expected for 150 marks in JEE Main?",
+          "a": "Based on historical trends, 150 marks in JEE Main typically yields a Common Merit List (CRL) rank between 18,000 and 28,000, depending on the session difficulty."
+        }
+      ]
+    },
+    "neet": {
+      "name": "NEET",
+      "predictorTitle": "NEET Rank Predictor 2026 - Expected MBBS/BDS AIR Calculator",
+      "predictorDescription": "Predict your NEET 2026 MBBS and BDS All India Rank (AIR) instantly! Secure data-backed expected rank ranges matching historical datasets from 2023-2025.",
+      "previousYearTitle": "NEET Previous Year Ranks - Historical Cutoff Benchmarks Directory",
+      "previousYearDescription": "Explore official historic marks vs rank archives for NEET. Review how score thresholds and candidate reservations (OBC, SC, ST, EWS) shifted ranks.",
+      "marksVsRankTitle": "NEET Marks vs Rank - Multi-Year Score Inflation Comparative",
+      "marksVsRankDescription": "Track score inflation and rank deviations for NEET. Compare 2023, 2024, and 2025 MBBS seat cutoff lines mapped by raw marks out of 720.",
+      "yearRanksTitleTemplate": "NEET {year} Marks vs Rank Table - Historical Score Indexing",
+      "yearRanksDescriptionTemplate": "Access the comprehensive NEET {year} marks vs rank table. Filter by Category and Gender to evaluate government medical college thresholds.",
+      "keywords": [
+        "NEET rank predictor",
+        "NEET marks vs rank",
+        "NEET rank vs marks",
+        "NEET MBBS seat predictor",
+        "NEET government college cutoff score",
+        "NEET expected rank 2026",
+        "marks vs rank NEET 2025",
+        "marks vs rank NEET 2024",
+        "NEET score to rank calculator",
+        "NEET rank range",
+        "NEET marks vs rank SC ST OBC"
+      ],
+      "faq": [
+        {
+          "q": "What NEET score is required for a government MBBS seat?",
+          "a": "For the General category, a NEET score of 610+ is typically needed for a government college MBBS seat through the All India Quota, though state quotas may have lower thresholds."
+        },
+        {
+          "q": "Why do NEET marks-to-rank trends shift so much each year?",
+          "a": "NEET ranks fluctuate heavily based on the overall difficulty of the paper and the performance of top-scoring candidates, which is why historical comparisons are vital."
+        },
+        {
+          "q": "What rank will I get for 600 marks in NEET?",
+          "a": "Historically, 600 marks in NEET corresponds to an All India Rank of approximately 20,000 to 30,000. However, in years with extreme score inflation (such as 2024), the rank can slide to 70,000+."
+        }
+      ]
+    },
+    "gate": {
+      "name": "GATE",
+      "predictorTitle": "GATE Rank Predictor 2026 - Predict Score & PSU Rank Ranges",
+      "predictorDescription": "Calculate your expected GATE 2026 rank and normalized score instantly! Built on premium multi-year IIT databases from 2023, 2024, and 2025.",
+      "previousYearTitle": "GATE Previous Year Ranks - M.Tech & PSU Cutoff Benchmarks",
+      "previousYearDescription": "Discover historical GATE cutoff rankings. Examine candidate marks and category indexes from past cycles to optimize postgraduate targets.",
+      "marksVsRankTitle": "GATE Marks vs Rank - Multi-Year Comparative Trend Analysis",
+      "marksVsRankDescription": "Assess how GATE raw marks (out of 100) map to normalized scores and AIR. Analyze comparative thresholds across the last three years.",
+      "yearRanksTitleTemplate": "GATE {year} Marks vs Rank Table - Detailed Historical Index",
+      "yearRanksDescriptionTemplate": "Filter through official GATE {year} student score logs. Review category-wise rankings (General, OBC, SC, ST) to gauge IIT admission margins.",
+      "keywords": [
+        "GATE rank predictor",
+        "GATE marks vs rank",
+        "GATE score calculator",
+        "GATE expected rank 2026",
+        "GATE rank vs marks",
+        "marks vs rank GATE 2025",
+        "GATE PSU recruitment cutoffs",
+        "GATE category rank OBC SC ST",
+        "GATE marks to score conversion"
+      ],
+      "faq": [
+        {
+          "q": "What is a good rank in GATE for PSU recruitment?",
+          "a": "For top public sector undertakings (PSUs), a GATE rank within the top 200–500 in core branches is usually required for General category candidates."
+        },
+        {
+          "q": "How does the GATE normalization process work?",
+          "a": "For multi-session papers, GATE normalizes marks using standard formulas based on the mean and standard deviation of top performers, which this predictor accounts for."
+        },
+        {
+          "q": "What is a safe GATE score for IIT Bombay M.Tech?",
+          "a": "Generally, a normalized GATE score above 750 (often corresponding to a rank under 300) is considered safe for core engineering M.Tech branches at top-tier IITs."
+        }
+      ]
+    },
+    "cat": {
+      "name": "CAT",
+      "predictorTitle": "CAT Percentile Predictor 2025 - Expected IIM Call Calculator",
+      "predictorDescription": "Predict your CAT 2025 raw score to percentile and expected ranks instantly! Verified local interpolation matching official 2023, 2024 data.",
+      "previousYearTitle": "CAT Previous Year Percentiles - Dynamic Cutoff Database",
+      "previousYearDescription": "View multi-year CAT percentiles and ranks. Analyze detailed sectional benchmarks and category percentiles to check IIM call eligibility.",
+      "marksVsRankTitle": "CAT Marks vs Percentile - Sectional Scaling Comparative Index",
+      "marksVsRankDescription": "Evaluate sectional raw marks scaling to percentiles for CAT. Track the changes in percentile shifts out of 198 total marks.",
+      "yearRanksTitleTemplate": "CAT {year} Marks vs Percentile Table - Historical IIM Cutoffs",
+      "yearRanksDescriptionTemplate": "Explore detailed CAT {year} scaling sheets. Filter General, NC-OBC, SC, ST, EWS ranks to identify profile benchmarks.",
+      "keywords": [
+        "CAT percentile predictor",
+        "CAT marks vs percentile",
+        "CAT score vs percentile calculator",
+        "CAT expected percentile 2025",
+        "CAT marks vs rank",
+        "IIM calls cutoff percentile",
+        "CAT percentile calculator NC OBC SC ST",
+        "CAT sectional marks vs percentile"
+      ],
+      "faq": [
+        {
+          "q": "What CAT percentile corresponds to a raw score of 100?",
+          "a": "Usually, a raw score of 95–100 out of 198 yields a 99+ percentile in CAT, putting you in the top tier for IIM calls."
+        },
+        {
+          "q": "Does CAT rank determine IIM admissions?",
+          "a": "Yes, raw marks map to percentiles and ranks, which are then combined with academic profile (10th/12th/Graduation), work experience, and gender diversity points."
+        },
+        {
+          "q": "What CAT percentile is required for IIM Ahmedabad?",
+          "a": "Generally, General category candidates require a CAT percentile of 99.5+ along with a stellar academic profile to get a call from IIM Ahmedabad."
+        }
+      ]
+    },
+    "wbjee": {
+      "name": "WBJEE",
+      "predictorTitle": "WBJEE Rank Predictor 2026 - Expected GMR & PMR Calculator",
+      "predictorDescription": "Predict your WBJEE General Merit Rank (GMR) instantly based on Paper 1 & 2 combined scores! Built on historical student databases from 2022-2025.",
+      "previousYearTitle": "WBJEE Previous Year Ranks - Jadavpur University Cutoffs Database",
+      "previousYearDescription": "Analyze historical WBJEE GMR and PMR cutoffs. Access 2022, 2023, 2024, and 2025 student records filtered by Genders and Reservation categories.",
+      "marksVsRankTitle": "WBJEE Marks vs Rank - Multi-Year GMR Inflation Comparative",
+      "marksVsRankDescription": "Track GMR inflation and score-to-rank shifts for WBJEE. Compare historical engineering cutoff trends out of 200 total marks.",
+      "yearRanksTitleTemplate": "WBJEE {year} Marks vs Rank Table - Historical GMR Directory",
+      "yearRanksDescriptionTemplate": "Search through actual WBJEE {year} student scores. Filter category GMR and TFW quotas to gauge engineering college seats.",
+      "keywords": [
+        "WBJEE rank predictor",
+        "WBJEE marks vs rank",
+        "WBJEE GMR calculator",
+        "WBJEE rank vs marks",
+        "Jadavpur University CSE cutoff WBJEE",
+        "WBJEE expected rank 2026",
+        "marks vs rank WBJEE 2025",
+        "WBJEE PMR predictor",
+        "WBJEE TFW quota marks vs rank"
+      ],
+      "faq": [
+        {
+          "q": "What is a good rank in WBJEE for Jadavpur University CSE?",
+          "a": "Generally, a GMR under 100 is required for Jadavpur University Computer Science & Engineering (CSE) for General category candidates, which typically corresponds to a score of 145+ out of 200 depending on the year's difficulty."
+        },
+        {
+          "q": "What is the difference between GMR and PMR in WBJEE?",
+          "a": "GMR (General Merit Rank) is based on Paper 1 (Mathematics) and Paper 2 (Physics & Chemistry) combined, used for engineering admissions. PMR (Pharmacy Merit Rank) is based solely on Paper 2 and is used for pharmacy admissions."
+        },
+        {
+          "q": "How does the negative marking system work in WBJEE?",
+          "a": "WBJEE has three categories of questions. Category I has -0.25 negative marking, Category II has -0.50 negative marking, and Category III has no negative marking, which makes fractional scores highly accurate."
+        }
+      ]
+    }
+  }
+}

@@ -6,6 +6,8 @@ import { predictRank } from "../../../lib/queries/predict-rank";
 import { Breadcrumbs } from "../../../components/Breadcrumbs";
 import { Card } from "../../../components/ui/Card";
 import { LineChart, Sparkles, TrendingUp, HelpCircle, ArrowRight } from "lucide-react";
+import { generateSEOMetadata, generateStructuredData } from "../../../lib/seo";
+import seoData from "../../../lib/config/seo-metadata.json";
 
 interface PageProps {
   params: Promise<{ exam: string }>;
@@ -18,10 +20,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!exam) return { title: "Trends Not Found" };
 
-  return {
-    title: `${exam.name} Marks vs Rank Trends - Comparative Multi-Year Database`,
-    description: `Analyze how scores map to percentiles and ranks across 2023, 2024, and 2025 for ${exam.name}. Compare year-over-year score inflation.`,
-  };
+  return generateSEOMetadata({
+    examSlug: exam.slug,
+    pageType: "marksVsRank",
+    canonicalPath: `/${exam.slug}/marks-vs-rank`,
+  });
 }
 
 export default async function MarksVsRankPage({ params }: PageProps) {
@@ -65,8 +68,27 @@ export default async function MarksVsRankPage({ params }: PageProps) {
     })
   );
 
+  const breadcrumbsSchema = generateStructuredData("breadcrumbs", {
+    breadcrumbs: [
+      { name: "Home", url: "/" },
+      { name: `${exam.name} Predictor`, url: `/${exam.slug}/rank-predictor` },
+      { name: "Marks vs Rank Trends", url: `/${exam.slug}/marks-vs-rank` },
+    ],
+  });
+
+  const customFaq = (seoData.exams as any)[exam.slug]?.faq || [];
+  const faqSchema = generateStructuredData("faq", { faqs: customFaq });
+
   return (
     <div className="container max-w-6xl mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* Breadcrumbs */}
       <Breadcrumbs
         items={[
@@ -174,6 +196,29 @@ export default async function MarksVsRankPage({ params }: PageProps) {
           </Link>
         </Card>
       </div>
+
+      {/* Dynamic Student Blog Callout */}
+      <Card variant="flat" className="mt-12 p-6 bg-gradient-to-r from-amber-50/50 to-amber-100/20 border border-amber-100 rounded-3xl dark:from-zinc-900/50 dark:to-zinc-900/30 dark:border-amber-900/30 relative overflow-hidden flex flex-col sm:flex-row items-center gap-4">
+        <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shrink-0 dark:bg-amber-950/50 dark:text-amber-400 text-lg">
+          📖
+        </div>
+        <div className="flex-1 text-center sm:text-left">
+          <h4 className="text-base font-black text-slate-800 dark:text-zinc-200">
+            Confused about college choices or counseling?
+          </h4>
+          <p className="text-xs font-bold text-slate-500 dark:text-zinc-400 mt-1">
+            Read helpful branch-picking guides, prep strategies, and honest campus reviews written by fellow students!
+          </p>
+        </div>
+        <a
+          href="https://blog.studiva.co.in"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 py-2 text-xs font-extrabold text-slate-800 bg-white hover:bg-slate-50 border-2 border-slate-200 rounded-xl transition-all shadow-[0_2px_0_0_#e2e8f0] active:translate-y-[2px] active:shadow-none dark:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-200 dark:shadow-[0_2px_0_0_#27272a] dark:hover:bg-zinc-850 shrink-0"
+        >
+          Read Student Blog
+        </a>
+      </Card>
 
       {/* Informative description */}
       <section className="mt-16 bg-white dark:bg-zinc-900/50 rounded-3xl p-8 border-2 border-slate-200/80 dark:border-zinc-800">

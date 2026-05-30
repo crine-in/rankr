@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import Link from "next/link";
 import { Trophy, Award, Sparkles, BookOpen } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
+import { Analytics } from "@vercel/analytics/react";
+import { generateSEOMetadata } from "@/lib/seo";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -10,34 +13,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Rankr - Playful & Accurate Rank Predictor for Competitive Exams",
-    template: "%s | Rankr",
-  },
-  description: "Predict your competitive exam rank instantly! High-impact, interpolation-backed analysis for JEE Main, NEET, GATE, and CAT with no login required.",
-  keywords: ["JEE Main rank predictor", "NEET rank predictor", "GATE rank predictor", "CAT percentile predictor", "marks vs rank", "rank prediction"],
-  authors: [{ name: "Rankr Team" }],
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://rankr.in"),
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://rankr.in",
-    siteName: "Rankr",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Rankr Prediction Platform",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Rankr - Competitive Exam Rank Predictor",
-    description: "Fun, student-first rank prediction platform for JEE, NEET, GATE, and CAT. Zero signups, instant data-backed answers.",
-    images: ["/og-image.png"],
-  },
+  ...generateSEOMetadata({}),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://rankr.crine.in"),
 };
 
 export default function RootLayout({
@@ -49,8 +26,26 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${outfit.variable} h-full antialiased font-sans`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-slate-50 text-slate-800 selection:bg-indigo-100 selection:text-indigo-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  document.documentElement.classList.add('dark');
+                  document.documentElement.classList.remove('light');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                  document.documentElement.classList.add('light');
+                }
+              } catch (_) {}
+            `,
+          }}
+        />
+      </head>
+      <body className="min-h-full flex flex-col bg-slate-50 text-slate-800 selection:bg-indigo-100 selection:text-indigo-900 dark:bg-zinc-950 dark:text-zinc-100 transition-colors duration-300">
         {/* Global Navigation Header */}
         <header className="sticky top-0 z-50 w-full border-b-2 border-slate-200/80 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80 dark:border-zinc-800/80 dark:bg-zinc-950/95 dark:supports-[backdrop-filter]:bg-zinc-950/80">
           <div className="container max-w-6xl mx-auto flex h-16 items-center justify-between px-4">
@@ -83,6 +78,7 @@ export default function RootLayout({
             </nav>
 
             <div className="flex items-center gap-3">
+              <ThemeToggle />
               <Link
                 href="/jee-main/rank-predictor"
                 className="inline-flex items-center gap-1.5 px-4.5 py-2 text-xs font-black text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl transition-all shadow-[0_3px_0_0_#4338ca] active:translate-y-[3px] active:shadow-none"
@@ -94,47 +90,147 @@ export default function RootLayout({
           </div>
         </header>
 
+        {/* Top Infinite Marquee Promotion Banner (sitting below navigation header) */}
+        <div className="relative w-full overflow-hidden bg-slate-900 text-white py-2 text-xs font-black tracking-wide border-b border-slate-800 dark:bg-zinc-950 dark:border-zinc-900 select-none animate-marquee-hover-pause">
+          <div className="animate-marquee flex items-center gap-16 whitespace-nowrap">
+            {/* Slide block 1 */}
+            <div className="flex items-center gap-16">
+              <span>
+                🚀 Handcrafted study notes, mock tests & exam prep at{" "}
+                <a
+                  href="https://www.studiva.co.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-indigo-400 hover:text-indigo-300 transition-colors font-extrabold"
+                >
+                  www.studiva.co.in
+                </a>
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+              <span>
+                💻 Need a website or mobile app? Let's build your project at{" "}
+                <a
+                  href="https://www.crine.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-emerald-400 hover:text-emerald-300 transition-colors font-extrabold"
+                >
+                  www.crine.in
+                </a>
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+            </div>
+            {/* Slide block 2 (Duplicate for infinite seamless looping) */}
+            <div className="flex items-center gap-16">
+              <span>
+                🚀 Handcrafted study notes, mock tests & exam prep at{" "}
+                <a
+                  href="https://www.studiva.co.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-indigo-400 hover:text-indigo-300 transition-colors font-extrabold"
+                >
+                  www.studiva.co.in
+                </a>
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+              <span>
+                💻 Need a website or mobile app? Let's build your project at{" "}
+                <a
+                  href="https://www.crine.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline text-emerald-400 hover:text-emerald-300 transition-colors font-extrabold"
+                >
+                  www.crine.in
+                </a>
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+            </div>
+          </div>
+        </div>
+
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col">{children}</main>
 
         {/* Global Footer */}
-        <footer className="border-t-2 border-slate-200 bg-white py-12 dark:border-zinc-800 dark:bg-zinc-950 mt-auto">
-          <div className="container max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex flex-col items-center md:items-start gap-2">
+        <footer className="border-t-2 border-slate-200 bg-white py-16 dark:border-zinc-800 dark:bg-zinc-950 mt-auto">
+          <div className="container max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-10 items-start">
+            {/* Column 1: Brand & Tagline */}
+            <div className="flex flex-col items-center md:items-start gap-3">
               <Link href="/" className="flex items-center gap-2 font-black text-xl text-indigo-600 dark:text-indigo-400">
                 <div className="bg-indigo-600 text-white p-1 rounded-lg">
                   <Trophy className="w-4 h-4" />
                 </div>
                 <span>Rankr</span>
               </Link>
-              <p className="text-xs font-bold text-slate-400 dark:text-zinc-500 text-center md:text-left">
-                Playful & interactive entrance percentile analytics.
+              <p className="text-sm font-bold text-slate-400 dark:text-zinc-500 text-center md:text-left leading-relaxed">
+                Playful & interactive entrance percentile analytics built by students, for students.
               </p>
+              <div className="text-xs font-black text-slate-400 dark:text-zinc-500 mt-4">
+                © {new Date().getFullYear()} Rankr. Created for Students.
+              </div>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm font-bold text-slate-500 dark:text-zinc-400">
-              <Link href="/jee-main/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-                JEE Marks vs Rank
-              </Link>
-              <Link href="/neet/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-                NEET Marks vs Rank
-              </Link>
-              <Link href="/gate/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-                GATE Marks vs Rank
-              </Link>
-              <Link href="/cat/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-                CAT Percentiles
-              </Link>
-              <Link href="/wbjee/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
-                WBJEE Marks vs Rank
-              </Link>
+            {/* Column 2: Entrance Analytics Links */}
+            <div className="flex flex-col gap-3 items-center md:items-start">
+              <span className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-zinc-500">
+                Entrance Analytics
+              </span>
+              <div className="flex flex-col items-center md:items-start gap-2 text-sm font-bold text-slate-500 dark:text-zinc-400">
+                <Link href="/jee-main/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+                  JEE Marks vs Rank
+                </Link>
+                <Link href="/neet/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+                  NEET Marks vs Rank
+                </Link>
+                <Link href="/gate/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+                  GATE Marks vs Rank
+                </Link>
+                <Link href="/cat/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+                  CAT Percentiles
+                </Link>
+                <Link href="/wbjee/marks-vs-rank" className="hover:text-indigo-600 dark:hover:text-indigo-400">
+                  WBJEE Marks vs Rank
+                </Link>
+              </div>
             </div>
 
-            <div className="text-xs font-black text-slate-400 dark:text-zinc-500">
-              © {new Date().getFullYear()} Rankr. Created for Students.
+            {/* Column 3: Partner Resources / Ecosystem Promos */}
+            <div className="flex flex-col gap-3 items-center md:items-start">
+              <span className="text-xs font-black uppercase tracking-widest text-slate-400 dark:text-zinc-500">
+                Free Student Resources
+              </span>
+              <div className="flex flex-col items-center md:items-start gap-2 text-sm font-bold text-slate-500 dark:text-zinc-400">
+                <a
+                  href="https://www.studiva.co.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400"
+                >
+                  Handcrafted Study Notes
+                </a>
+                <a
+                  href="https://blog.studiva.co.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400"
+                >
+                  Student Counseling Blog
+                </a>
+                <a
+                  href="https://www.crine.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 font-extrabold text-indigo-600 dark:text-indigo-400"
+                >
+                  Build a Custom Website or App
+                </a>
+              </div>
             </div>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   );
